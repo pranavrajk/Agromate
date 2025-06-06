@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Insect Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Use the power of Machine Learning to determine the usefulness of pests.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="images\AgroMate.png">
+    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #43a047;
+            --accent-color: #8bc34a;
+            --dark-accent: #33691e;
+            --text-color: #212121;
+            --light-bg: #f8f9fa;
+            --card-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            --primary-gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        body {
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            padding-top: 20px;
+            position: relative;
+            /* Updated agriculture-themed background image */
+            background-image: url('https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.10);
+            z-index: -1;
+        }
+        
+        .navbar-custom {
+            background: var(--primary-gradient);
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: white !important;
+            font-size: 1.6rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand i {
+            font-size: 1.8rem;
+            margin-right: 10px;
+            color: white;
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+        
+        .home-icon {
+            color: white !important;
+            font-size: 1.5rem;
+            padding: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .home-icon:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .main-content {
+            padding-top: 80px;
+            padding-bottom: 3rem;
+        }
+        
+        .header-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-gradient);
+        }
+        
+        .about-image {
+            max-width: 150px;
+            margin-bottom: 2rem;
+            border-radius: 50%;
+            box-shadow: var(--card-shadow);
+            padding: 0.5rem;
+            background: white;
+            border: 3px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .header-title {
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .header-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+        }
+        
+        .lead-text {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-gradient);
+        }
+        
+        .section-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+        }
+        
+        .progress-bar-wrapper {
+            margin-bottom: 2rem;
+        }
+        
+        .progress {
+            border-radius: 30px;
+            overflow: hidden;
+            height: 40px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            background-color: #f5f5f5;
+        }
+        
+        .progress-bar {
+            background: var(--primary-gradient);
+            background-image: linear-gradient(45deg, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+            background-size: 1rem 1rem;
+            animation: progress-bar-stripes 1s linear infinite;
+        }
+        
+        @keyframes progress-bar-stripes {
+            from { background-position: 1rem 0; }
+            to { background-position: 0 0; }
+        }
+        
+        #progress-text h5 {
+            margin-top: 8px !important;
+            color: white;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+            font-weight: 600;
+        }
+        
+        .custom-file-upload {
+            border: 2px dashed var(--accent-color);
+            border-radius: 15px;
+            display: inline-block;
+            padding: 2rem 3rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            background-color: rgba(139, 195, 74, 0.1);
+            margin: 1.5rem 0;
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        
+        .custom-file-upload:hover {
+            background-color: rgba(139, 195, 74, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 195, 74, 0.25);
+        }
+        
+        .custom-file-upload i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            display: block;
+        }
+        
+        .picholder {
+            max-width: 350px;
+            margin: 1.5rem auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            background-color: #f5f5f5;
+            padding: 0.75rem;
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease;
+        }
+        
+        .picholder:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .bugimg {
+            max-width: 100%;
+            border-radius: 12px;
+        }
+        
+        .predict-btn-wrapper {
+            margin: 2rem 0;
+        }
+        
+        .btn-success {
+            background: var(--primary-gradient);
+            border: none;
+            padding: 0.9rem 2.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(67, 160, 71, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 160, 71, 0.5);
+        }
+        
+        .btn-success::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-success:hover::before {
+            left: 100%;
+        }
+        
+        .confirmation-text {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .predict {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .predict::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-gradient);
+        }
+        
+        .main-body-title-1 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .main-body-title-1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+        }
+        
+        #prediction-list {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        #explanation-list {
+            background-color: rgba(139, 195, 74, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            position: relative;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary-gradient);
+        }
+        
+        .feature-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        hr.predict {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            width: 50%;
+            margin: 2rem auto;
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            
+            .custom-file-upload {
+                padding: 1.5rem 2rem;
+            }
+            
+            .btn-success {
+                padding: 0.75rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .header-section {
+                padding: 2rem 1rem;
+            }
+            
+            .upload-section {
+                padding: 1.5rem;
+            }
+            
+            .lead-text {
+                font-size: 1rem;
+            }
+            
+            .feature-icon {
+                font-size: 2rem;
+            }
+        }
+        .navbar-custom a {
+            text-decoration: none;
+            color: #f4f7f3;
+        }
+        .logo-image {
+            width: auto;
+            height: 2.5rem;
+            object-fit: cover;
+            padding: 1px;
+        }
+        .btn {
+            background-color: #199119;
+            border-radius: 10px;
+            border: 3px solid #f8f8f4;
+        }
+        
+        /* New styles for the navbar layout */
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .logo-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        .title-container {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .home-button-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+            }
+            
+            .logo-container, .title-container, .home-button-container {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-custom navbar-expand-md fixed-top">
+        <div class="container">
+            <div class="navbar-container">
+                <!-- Logo on the left -->
+                <div class="logo-container">
+                    <a href="../../index.html">
+                    <img src="../../images/Logo.jpg" class="logo-image" alt="Blog"></a>
+                </div>
+                
+                <!-- Title in the center -->
+                <div class="title-container">
+                    <a class="navbar-brand" href="index.html" id="nav-logo">
+                        <i class="fas fa-bug"></i> Insect Finder
+                    </a>
+                </div>
+                
+                <!-- Home button on the right -->
+                <div class="home-button-container">
+                    <a href="../../../main/index.html" class="btn btn-outline-success">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                </div>
+            </div>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <section class="header-section">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img src="images/insect.png" class="about-image">
+                        <h1 class="header-title">Welcome to Insect Finder</h1>
+                        <p class="lead-text">
+                            An innovative tool to help farmers maximize their yields and make their pesticide use more effective.
+                            Identify pests, evaluate their risk level, and find the most suitable treatment methods.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="upload-section">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2 class="section-title">Upload Your Image</h2>
+                    </div>
+                    <div class="col-12 progress-bar-wrapper">
+                        <div class="progress progress-bar progress-bar-striped progress-bar-animated mb-2" style="height: 40px;">
+                            <span id="progress-text"><h5>Loading Model</h5></span>
+                        </div>
+                    </div>
+                    <div class="col-12 upload-btn-wrapper text-center">
+                        <label class="custom-file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span id="upload-pic">Drag or Upload Picture</span>
+                            <input id="image-selector" class="form-control border-0" type="file">
+                        </label>
+                    </div>
+                    <div class="col-12">
+                        <div class="image-container center picholder">
+                            <img id="selected-image" class="bugimg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-12 predict-btn-wrapper text-center">
+                        <button id="predict-button" class="btn btn-success">
+                            <i class="fas fa-search mr-2"></i><span class="predict-button">Predict</span>
+                        </button>
+                    </div>
+                    <div class="col-12 confirmation-text text-center" style="display:none;margin: 20px;">
+                        <i class="fas fa-check-circle mr-2"></i> Your result can be found below
+                    </div>
+                </div>
+                <hr class="predict" style="display:none;">
+            </section>
+
+            <section>
+                <div class="container predict" style="display: none;">
+                    <div class="row">
+                        <div class="col-12 identifier-wrapper text-center">
+                            <h2 class="main-body-title-1">Prediction Results</h2><br>
+                            <div class="row">
+                                <div class="col-md-4 text-center mb-4">
+                                    <img src="/api/placeholder/120/120" alt="Insect identification" class="img-fluid rounded-circle mb-3" style="border: 3px solid var(--accent-color); padding: 3px; background-color: white;">
+                                    <h5 class="text-success">Identified Insect</h5>
+                                </div>
+                                <div class="col-md-8 text-left">
+                                    <p id="prediction-list"></p>
+                                    <p id="explanation-list"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script src="js/target_classes.js"></script>
+    <script src="js/predict.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

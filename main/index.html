@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriTech Hub - Smart Farming Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+
+*{
+scroll-behavior: smooth;
+}
+
+/* Base Styles */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  height: 4rem;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.5rem;
+  color: #0DB977;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
+
+.nav-link {
+text-wrap:nowrap;
+  color: #374151;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #0DB977;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-primary {
+  background-color: #0DB977;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: rgba(13, 185, 119, 0.9);
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 600px;
+  background-size: cover;
+  background-position: center;
+  background-image: url('https://public.readdy.ai/ai/img_res/0b2909d841a8ab91c7697b9f79e85a08.jpg');
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.6), transparent);
+}
+
+.hero-content {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.hero-text {
+  max-width: 42rem;
+  color: white;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+
+/* Sections */
+.section {
+  padding: 2rem 0;
+}
+
+.section-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.section-description {
+  color: #6b7280;
+  max-width: 42rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Cards */
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.chart-container {
+  height: 300px;
+}
+
+/* Grid Layout */
+.grid-cols-2 {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid-cols-3 {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-cols-4 {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Feature Cards */
+.feature-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 2px 3px 4px 2px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(13, 185, 119, 0.1);
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+}
+
+.feature-icon i {
+  color: #0DB977;
+  font-size: 1.5rem;
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.feature-description {
+  color: #6b7280;
+}
+
+.feature-link {
+  color: #ffffff;
+  background-color: #0DB977;
+  margin-top: 1rem;
+  border: none;
+  height: 25px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+}
+
+.feature-link:hover {
+  color: rgba(13, 185, 119, 0.8);
+}
+
+/* Blog Cards */
+.blog-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.logo-image {
+margin: 0 auto;
+  width: 100%;
+  height: 2.1rem;
+  object-fit: cover;
+}
+
+.blog-image {
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
+}
+
+.blog-content {
+  padding: 1.5rem;
+}
+
+.blog-date {
+  font-size: 0.875rem;
+  color: #0DB977;
+}
+
+.blog-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.blog-excerpt {
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.blog-link {
+  color: #0DB977;
+  text-decoration: none;
+}
+
+.blog-link:hover {
+  color: rgba(13, 185, 119, 0.8);
+}
+
+/* Equipment Cards */
+.equipment-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.equipment-image {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+}
+
+.equipment-content {
+  padding: 1rem;
+}
+
+.equipment-name {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.equipment-desc {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.equipment-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.equipment-price {
+  color: #0DB977;
+  font-weight: 600;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+/* Stats */
+.stat {
+  text-align: center;
+}
+
+.stat-icon {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(13, 185, 119, 0.1);
+  border-radius: 9999px;
+}
+
+.stat-icon i {
+  color: #0DB977;
+  font-size: 1.75rem;
+}
+
+.stat-number {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #6b7280;
+}
+
+/* CTA Section */
+.cta {
+  background-color: #0DB977;
+  padding: 4rem 0;
+}
+
+.cta-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.cta-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: white;
+}
+
+.cta-description {
+  max-width: 42rem;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-white {
+  background-color: white;
+  color: #0DB977;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-white:hover {
+  background-color: #f3f4f6;
+}
+
+.btn-outline-white {
+  background-color: transparent;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+.btn-outline-white:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Footer */
+.footer {
+  background-color: #111827;
+  color: #d1d5db;
+  padding: 3rem 0;
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footer-grid {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.logo-images{
+  margin: 0 auto;
+  width: 120px;
+  object-fit: cover;
+}
+
+.footer-about {
+  color: #9ca3af;
+}
+
+.footer-heading {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-link {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.social-link {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  color: white;
+}
+
+.app-download {
+  font-size: 0.875rem;
+}
+
+.app-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.app-button {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.app-button:hover {
+  opacity: 0.8;
+}
+
+.app-button i {
+  font-size: 1.5rem;
+}
+
+.footer-bottom {
+  border-top: 1px solid #1f2937;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer-links-bottom {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-link-bottom {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.footer-link-bottom:hover {
+  color: white;
+}
+
+/* Chat Button */
+.chat-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 70px;
+}
+
+.chat-button i {
+  font-size: 1.5rem;
+}
+
+/* Utility Classes */
+.max-w-7xl {
+  max-width: 1280px;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-1 {
+  gap: 0.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-primary {
+  color: #0DB977;
+}
+
+.text-gray-600 {
+  color: #6b7280;
+}
+
+.text-gray-700 {
+  color: #374151;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.bg-primary {
+  background-color: #0DB977;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.bg-gray-900 {
+  background-color: #111827;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-button {
+  border-radius: 8px;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.pt-16 {
+  padding-top: 4rem;
+}
+
+/* Custom Styles */
+.weather-card {
+  backdrop-filter: blur(8px);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  
+}
+</style>
+
+</head>
+<body>
+<nav class="navbar">  
+  <div class="nav-container">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <img src="images\Logo.jpg" class="logo-image" alt="Blog">
+        <div class="nav-links">
+          <a href="aboutus.html" class="nav-link">About us</a>
+          <a href="contactus.html" class="nav-link">Contact Us</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button onclick="logout()" class="btn-primary">Log out</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-16">
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">Transform Your Farming with Smart Technology</h1>
+        <p class="hero-description">Access real-time weather data, market prices, and expert guidance to make informed decisions for your farm's success.</p>
+        <div class="hero-buttons">
+          <button class="btn-primary btn-lg" ><a href="#get-started" style="color: none;text-decoration: none;">Get Start</a></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Ecommerce</h2>
+        <p class="section-description">Buy farm-fresh produce directly from the source!.</p>
+      </div>
+      <div class="grid-cols-3">
+        <div class="blog-card">
+          <img src="agromateindex1_files/download.jpeg" class="blog-image" alt="Blog">
+          <div class="blog-content">
+         
+            <h3 class="blog-title">Buy farm-fresh produce directly from the source</h3>
+            <p class="blog-excerpt">Buy farm-fresh produce directly from the source!Enjoy the online shopping  while getting the freshest fruits, vegetables.</p>
+            <a href="AgroMate_Ecommerce/cart/index.php" class="blog-link"></a>
+            <button onclick="showMarketplace()" class="feature-link">
+              Visit Store <i class="ri-arrow-right-line"></i>
+            </button>
+          </div>
+        </div>
+        <div class="blog-card">
+          <img src="images\Land.jpg" class="blog-image" alt="Blog">
+          <div class="blog-content">
+            
+            <h3 class="blog-title">Own your farm where you want!</h3>
+            <p class="blog-excerpt">Owning your land or sell your land with responsibilities associated with holding title to a piece of property</p>
+            <a href="Land\index.php" class="blog-link"></a>
+            <button onclick="gotoland()" class="feature-link">
+              Own Land<i class="ri-arrow-right-line"></i>
+            </button>
+          </div>
+        </div>
+        <div class="blog-card">
+          <img src="images\pests.jpg" class="blog-image" alt="Blog">
+          <div class="blog-content">
+       
+            <h3 class="blog-title">Pest Identifier</h3>
+            <p class="blog-excerpt">An easy-to-use insect search tool enabling site visitors to actively search for specific bugs in the Insect Identification database.</p>
+            <a href="Insect finder/Insect Finder/index.html" class="blog-link"></a>
+            <button onclick="showPestIdentifier()" class="feature-link">
+              Identify pest<i class="ri-arrow-right-line"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="get-started" class="section">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Our Core Services</h2>
+        <p class="section-description">Comprehensive solutions designed to enhance your farming efficiency and productivity.</p>
+      </div>
+      <div class="grid-cols-4">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="ri-government-line"></i>
+          </div>
+          <h3 class="feature-title">Government Schemes</h3>
+          <p class="feature-description">Access latest government subsidies and support programs for farmers.</p>
+          <button onclick="showSchemes()" class="feature-link">
+            Learn More <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="ri-store-3-line"></i>
+          </div>
+          <h3 class="feature-title">Ecommerce</h3>
+          <p class="feature-description"> Buy farm-fresh produce directly from the source! Enjoy the convenience of shopping online while getting the freshest fruits, vegetables.</p>
+          
+          <button onclick="showMarketplace()" class="feature-link">
+            Visit Store <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="ri-bug-line"></i>
+          </div>
+          <h3 class="feature-title">Pest Identifier</h3>
+          <p class="feature-description">AI-powered pest identification and control recommendations.An easy-to-use insect search tool to search for specific bugs Identification.</p>
+          <button onclick="showPestIdentifier()" class="feature-link">
+            Identify Pests <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="ri-money-dollar-circle-line"></i>
+          </div>
+          <h3 class="feature-title">MSP Tracking</h3>
+          <p class="feature-description">Real-time updates on Minimum Support Prices for various crops.</p>
+          <button onclick="showMSP()" class="feature-link">
+            View Rates <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="ri-cloud-line"></i>
+          </div>
+          <h3 class="feature-title">Weather Intelligence</h3>
+          <p class="feature-description">Designed specifically for farmers, our Weather Forecast service offers vital information essential for agricultural planning.</p>
+          <button onclick="weatherIntelligence()" class="feature-link">
+            Learn More <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="ri-store-line"></i>
+          </div>
+          <h3 class="feature-title">Rental System</h3>
+          <p class="feature-description">Connect directly with buyers and get the best prices for your produce.</p>
+          <button onclick="rentalSystem()" class="feature-link">
+            Visit Store <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="ri-store-line"></i>
+          </div>
+          <h3 class="feature-title">Crop rotation</h3>
+          <p class="feature-description">Connect directly with buyers and get the best prices for your produce.</p>
+          <button onclick="cropRotation()" class="feature-link">
+            Visit Store <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="ri-store-line"></i>
+          </div>
+          <h3 class="feature-title">Schemes</h3>
+          <p class="feature-description">Connect directly with buyers and get the best prices for your produce.</p>
+          <button onclick="showgovtSchemes()" class="feature-link">
+            Visit Store <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="section-title">AI-powered Agri Assistant</h2>
+        <p class="section-description">Get instant answers to your farming queries with our intelligent chatbot.</p>
+      </div>
+      <div class="flex justify-center">
+       <center> <button onclick="window.location.href='Voice%20Chatbot/voicebot.html'" class="btn-primary btn-lg chat-button">
+          <i class="ri-robot-line"></i>
+        Chat with AI Assistant
+        </button></center>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <section class="section bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Featured Equipment</h2>
+        <p class="section-description">Browse our selection of high-quality farming equipment available for rent.</p>
+      </div>
+      <div class="grid-cols-4" style=" grid-template-columns: repeat(3, 1fr);">
+        <div class="equipment-card">
+          <img src="https://public.readdy.ai/ai/img_res/8e7f8e2e17ed2edbf2205d1f556d948c.jpg" class="equipment-image" alt="Tractor">
+          <div class="equipment-content">
+            <h3 class="equipment-name">John Deere 5E Series</h3>
+            <p class="equipment-desc">75 HP Utility Tractor</p>
+            <div class="equipment-footer">
+              <span class="equipment-price">$150/day</span>
+              <button onclick="rentalSystem()" class="btn-primary btn-sm">Rent Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="equipment-card">
+          <img src="https://public.readdy.ai/ai/img_res/6bf196b43bc0349ec8566acb0b1f8d23.jpg" class="equipment-image" alt="Harvester">
+          <div class="equipment-content">
+            <h3 class="equipment-name">Case IH Harvester</h3>
+            <p class="equipment-desc">Axial-Flow Combine</p>
+            <div class="equipment-footer">
+              <span class="equipment-price">$300/day</span>
+              <button onclick="rentalSystem()" class="btn-primary btn-sm">Rent Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="equipment-card">
+          <img src="https://public.readdy.ai/ai/img_res/f8af0b20d647c27d149704f1cd47e88f.jpg" class="equipment-image" alt="Seeder">
+          <div class="equipment-content">
+            <h3 class="equipment-name">Precision Seeder</h3>
+            <p class="equipment-desc">GPS-Guided System</p>
+            <div class="equipment-footer">
+              <span class="equipment-price">$120/day</span>
+              <button onclick="rentalSystem()" class="btn-primary btn-sm">Rent Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Why Choose Us</h2>
+        <p class="section-description">Join thousands of farmers who trust our platform for their agricultural needs.</p>
+      </div>
+      <div class="grid-cols-4">
+        <div class="stat">
+          <div class="stat-icon">
+            <i class="ri-group-line"></i>
+          </div>
+          <h3 class="stat-number">10,000+</h3>
+          <p class="stat-label">Active Farmers</p>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">
+            <i class="ri-map-pin-line"></i>
+          </div>
+          <h3 class="stat-number">500+</h3>
+          <p class="stat-label">Locations</p>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">
+            <i class="ri-exchange-dollar-line"></i>
+          </div>
+          <h3 class="stat-number">$50M+</h3>
+          <p class="stat-label">Trade Volume</p>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">
+            <i class="ri-star-line"></i>
+          </div>
+          <h3 class="stat-number">4.8/5</h3>
+          <p class="stat-label">User Rating</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-content">
+      <div class="text-center mb-12">
+        <h2 class="cta-title">Ready to Transform Your Farm?</h2>
+        <p class="cta-description">Join thousands of farmers who are already benefiting from our smart farming solutions.</p>
+      </div>
+      <div class="cta-buttons">
+        <button onclick="contact()" class="btn-outline-white">Contact Us</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div>
+        <img src="images\Logo.jpg" class="logo-images" alt="Blog">
+        <p class="footer-about">Empowering farmers with smart technology for better yields and sustainable practices.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Services</h4>
+        <ul class="footer-links">
+          <li><a href="AgroMate_Ecommerce\cart\index.php" class="footer-link">Ecommerce</a></li>
+          <li><a href="Land\index.php" class="footer-link">Own Land</a></li>
+          <li><a href="Rental/index.html" class="footer-link">Equipment Rental</a></li>
+          <li><a href="Scheme/HTML/Category1.html" class="footer-link">Government Scheme</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Company</h4>
+        <ul class="footer-links">
+          <li><a href="aboutus.html" class="footer-link">About Us</a></li>
+          <li><a href="contactus.html" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Connect</h4>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="ri-facebook-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-twitter-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-linkedin-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-instagram-fill"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <p>© 2025 AgriTech Hub. All rights reserved.</p>
+        <div class="footer-links-bottom">
+          <a href="#" class="footer-link-bottom">Privacy Policy</a>
+          <a href="#" class="footer-link-bottom">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const message = input.value.trim();
+  if (!message) return;
+  
+  appendMessage(message, 'user');
+  input.value = '';
+  
+  setTimeout(() => {
+    const responses = [
+      "Based on current weather conditions, I recommend implementing drip irrigation to conserve water.",
+      "The best time to plant wheat in your region would be early October.",
+      "For organic pest control, you can try neem oil solution or introduce beneficial insects.",
+      "Current market trends show increasing demand for organic produce.",
+      "I'd recommend crop rotation to maintain soil health and prevent pest buildup."
+    ];
+    const response = responses[Math.floor(Math.random() * responses.length)];
+    appendMessage(response, 'bot');
+  }, 1000);
+}
+
+function appendMessage(message, type) {
+  const chatMessages = document.getElementById('chatMessages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'flex gap-3';
+  
+  if (type === 'user') {
+    messageDiv.innerHTML = `
+      <div class="flex-1"></div>
+      <div class="bg-primary/10 rounded-lg p-3 max-w-[80%]">
+        <p class="text-gray-700">${message}</p>
+      </div>
+      <div class="w-8 h-8 flex-shrink-0 rounded-full bg-gray-100 flex items-center justify-center">
+        <i class="ri-user-line text-gray-500"></i>
+      </div>
+    `;
+  } else {
+    messageDiv.innerHTML = `
+      <div class="w-8 h-8 flex-shrink-0 rounded-full bg-primary/10 flex items-center justify-center">
+        <i class="ri-robot-line text-primary"></i>
+      </div>
+      <div class="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+        <p class="text-gray-700">${message}</p>
+      </div>
+    `;
+  }
+  
+  chatMessages.appendChild(messageDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function askQuestion(question) {
+  document.getElementById('chatInput').value = question;
+  sendMessage();
+}
+
+function showSchemes() {
+  window.location.href='Scheme/HTML/Category2.html';
+}
+
+function showMSP() {
+    window.location.href='Scheme/HTML/MSP.html';
+}
+
+function showPestIdentifier() {
+    window.location.href='Insect finder/Insect Finder/index.html';
+}
+
+function showMarketplace() {
+    window.location.href='AgroMate_Ecommerce/cart/index.php';
+}
+
+function gotoland(){
+  window.location.href='Land/index.php'
+}
+
+function weatherIntelligence() {
+    window.location.href='WeatherSense-main/index.html';
+}
+
+function rentalSystem() {
+    window.location.href='Rental/index.html';
+}
+
+function cropRotation() {
+    window.location.href='more%20features/soilQuality.html';
+}
+
+function showgovtSchemes() {
+    window.location.href='more%20features/schemes.html';
+}
+
+function logout() {
+    window.location.href='../login.php';
+}
+
+function contact() {
+    window.location.href='contactus.html'
+}
+
+// Initialize charts
+const weatherChart = echarts.init(document.getElementById('weatherChart'));
+const priceChart = echarts.init(document.getElementById('priceChart'));
+
+const weatherOption = {
+  animation: false,
+  tooltip: {
+    trigger: 'axis',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    textStyle: { color: '#1f2937' }
+  },
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    axisLine: { lineStyle: { color: '#e5e7eb' } }
+  },
+  yAxis: {
+    type: 'value',
+    axisLine: { lineStyle: { color: '#e5e7eb' } }
+  },
+  series: [{
+    data: [23, 24, 25, 22, 24, 26, 25],
+    type: 'line',
+    smooth: true,
+    symbol: 'none',
+    lineStyle: { color: 'rgba(87, 181, 231, 1)' },
+    areaStyle: {
+      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        offset: 0,
+        color: 'rgba(87, 181, 231, 0.3)'
+      }, {
+        offset: 1,
+        color: 'rgba(87, 181, 231, 0.1)'
+      }])
+    }
+  }]
+};
+
+const priceOption = {
+  animation: false,
+  tooltip: {
+    trigger: 'axis',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    textStyle: { color: '#1f2937' }
+  },
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    axisLine: { lineStyle: { color: '#e5e7eb' } }
+  },
+  yAxis: {
+    type: 'value',
+    axisLine: { lineStyle: { color: '#e5e7eb' } }
+  },
+  series: [{
+    data: [150, 230, 224, 218, 135, 147, 260],
+    type: 'line',
+    smooth: true,
+    symbol: 'none',
+    lineStyle: { color: 'rgba(141, 211, 199, 1)' },
+    areaStyle: {
+      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        offset: 0,
+        color: 'rgba(141, 211, 199, 0.3)'
+      }, {
+        offset: 1,
+        color: 'rgba(141, 211, 199, 0.1)'
+      }])
+    }
+  }]
+};
+
+weatherChart.setOption(weatherOption);
+priceChart.setOption(priceOption);
+
+window.addEventListener('resize', () => {
+  weatherChart.resize();
+  priceChart.resize();
+});
+</script>
+</body>
+</html>

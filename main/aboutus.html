@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About AgroMate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #33b408;
+            --dark: #2E7D32;
+            --light: #F1F8E9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Add header/navigation styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 10%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+        }
+        
+        header:hover {
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .home-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .home-btn:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            margin-top: 0;
+        }
+        
+        /* Rest of your existing CSS remains the same */
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-image img:hover {
+            transform: scale(1.03);
+        }
+        
+        .services {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .team {
+            padding: 80px 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .member-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            padding: 20px;
+        }
+        
+        .member-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .member-info p {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: var(--dark);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        .stats {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-item h3 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .stat-item p {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            header {
+                padding: 15px 5%;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .home-btn {
+                padding: 6px 15px;
+                font-size: 0.8rem;
+            }
+        }
+        .logo-container {
+            max-height: 40px;
+        }
+        
+        .logo-container img {
+            max-height: 40px;
+            
+        }
+        
+        /* New styles for header layout */
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .left-section {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .center-section {
+            flex: 1;
+            text-align: center;
+            float: inline-start;
+            margin-left: 220px;
+        }
+        
+        .right-section {
+            flex: 1;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- Modified header with rearranged elements -->
+    <header>
+        <div class="header-content">
+                <div class="logo-container">
+                    <a href="index.html">
+                        <img src="images/Logo.jpg" alt="AgroMate Logo">
+                    </a> 
+            </div>
+            <div class="center-section">
+                <a href="" class="logo">Agro<span>Mate</span></a>
+            </div>
+            
+            <div class="right-section">
+                <a href="index.html" class="home-btn">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <h1>Welcome to AgroMate</h1>
+        <p>Your one-stop destination for fresh produce, gardening tools, pest solutions, and government agricultural resources</p>
+        <a href="#our-story" class="btn">Discover Our Story</a>
+    </section>
+    
+    <!-- Rest of your existing HTML remains the same -->
+    <section id="our-story" class="container">
+        <div class="section-title">
+            <h2>Our Story</h2>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h3>From Small Beginnings to Growing Communities</h3>
+                <p>Founded in 2025, AgroMate started as a small farmers' collective aiming to bridge the gap between local growers and urban consumers. What began as a weekend vegetable stall has blossomed into a comprehensive platform serving thousands of customers weekly.</p>
+                <p>Our mission is simple: to make healthy, sustainable living accessible to everyone while supporting local agriculture and providing valuable resources for home gardeners and farming professionals alike.</p>
+                <p>Today, we're proud to offer not just the freshest produce, but also a complete ecosystem of gardening tools, pest management solutions, and connections to government agricultural programs.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Farmers harvesting vegetables">
+            </div>
+        </div>
+    </section>
+    
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-carrot"></i>
+                    </div>
+                    <h3>Fresh Produce Market</h3>
+                    <p>Locally sourced fruits and vegetables delivered fresh from farm to your table. Seasonal selections and organic options available.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Tool Rental</h3>
+                    <p>Affordable rental of gardening and farming tools. From small hand tools to large equipment for commercial farming.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3>Insect Finder</h3>
+                    <p>Our advanced insect identification system helps you manage pests naturally. Upload a photo and get instant identification and organic solutions.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3>Government Resources</h3>
+                    <p>Direct links to agricultural subsidies, farming regulations, and government assistance programs. We help navigate the paperwork.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="stats">
+        <div class="container">
+            <h2 style="color: white; font-size: 2.5rem; margin-bottom: 30px;">By The Numbers</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Local Farms Partnered</p>
+                </div>
+                
+                <div class="stat-item">
+                    <h3>10,000+</h3>
+                    <p>Happy Customers</p>
+                </div>
+                
+                <div class="stat-item">
+                    <h3>200+</h3>
+                    <p>Tools Available</p>
+                </div>
+                
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <p>Support Available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="team container">
+        <div class="section-title">
+            <h2>Meet Our Team</h2>
+        </div>
+        
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-image">
+                    <!-- <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Team Member"> -->
+                </div>
+                <div class="member-info">
+                    <h3>Pranav Raj K</h3>
+                    <p>Founder</p>
+                    <p>Agricultural scientist with 5 years experience in sustainable farming.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <!-- <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Team Member"> -->
+                </div>
+                <div class="member-info">
+                    <h3>Sidharth Sajeev</h3>
+                    <p>Technology Director</p>
+                    <p>Developed our insect recognition AI and e-commerce platform.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <!-- <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Team Member"> -->
+                </div>
+                <div class="member-info">
+                    <h3>Prithiv Shanker</h3>
+                    <p>Farm Relations</p>
+                    <p>Connects with local growers to bring you the best seasonal produce.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <!-- <img src="https://images.unsplash.com/photo-1551836022-d5d44eef8bcf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Team Member"> -->
+                </div>
+                <div class="member-info">
+                    <h3>Sushanth</h3>
+                    <p>Government Liaison</p>
+                    <p>Helps navigate agricultural regulations and subsidy programs.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer style="background-color: var(--dark); color: white; text-align: center; padding: 30px 0;">
+        <div class="container">
+            <h3>AgroMate</h3>
+            <p>Growing Together, Naturally</p>
+            
+            <p>&copy; 2025 AgroMate. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agromate-Signup</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <style>
+        /* styles.css */
+:root {
+    --primary-color: #000000;
+    --text-color: #333333;
+    --border-color: #E5E5E5;
+    /* --background-color: #1a1a1a; */
+    --card-background: #FFFFFF;
+    --input-background: #FFFFFF;
+    --error-color: #FF3B30;
+    --success-color: #34C759;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background:url(main/images/login-Image.jpg);
+    background-size: cover;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+}
+
+.logo {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.logo sup {
+    font-size: 0.6rem;
+    color: #FF3B30;
+}
+
+.main-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: var(--card-background);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.5s ease-out;
+}
+
+.form-title {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.input-hint {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.password-input-wrapper {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color);
+}
+
+.password-requirements {
+    margin-bottom: 2rem;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.bullet {
+    width: 6px;
+    height: 6px;
+    background: #666;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.requirement.valid .bullet {
+    background: var(--success-color);
+}
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.submit-button:hover {
+    background: #333;
+}
+
+.submit-button:active {
+    transform: scale(0.98);
+}
+
+.login-link {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.text-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.text-link:hover {
+    text-decoration: underline;
+}
+
+.alert-box {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 20px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .card {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .form-subtitle {
+        font-size: 0.9rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Alert box for error messages -->
+        <div id="alertBox" class="alert-box"></div>
+        
+        <div class="card">
+            <div class="card-content">
+                <h2 class="form-title">Create an account</h2>
+                <p class="form-subtitle">Agromate</p>
+                
+                <form action="action/signup_process.php" id="signupForm" class="signup-form" method="post">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" required class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" name="phone" id="phone" required class="form-input">
+                        <p class="input-hint">We strongly recommend adding a phone number. This will help verify your account and keep it safe.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" name="password" id="password" required class="form-input">
+                            <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                                Hide
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="password-requirements">
+                        <div class="requirement" id="length-req">
+                            <span class="bullet"></span>
+                            Use 8 or more characters
+                        </div>
+                        <div class="requirement" id="case-req">
+                            <span class="bullet"></span>
+                            Use upper and lower case letters (e.g. Aa)
+                        </div>
+                        <div class="requirement" id="number-req">
+                            <span class="bullet"></span>
+                            Use a number (e.g. 1234)
+                        </div>
+                        <div class="requirement" id="symbol-req">
+                            <span class="bullet"></span>
+                            Use a symbol (e.g. !@#$)
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-button">Sign up</button>
+                </form>
+
+                <p class="login-link">
+                    Already have an account? <a href="login.php" class="text-link">Log in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the centered alert box
+        function showAlert(message) {
+            var alertBox = document.getElementById("alertBox");
+            alertBox.innerHTML = message;
+            alertBox.style.display = "block";
+
+            // Hide the alert box after 2 seconds
+            setTimeout(function() {
+                alertBox.style.display = "none";
+            }, 2000);
+        }
+
+        // Check if there's an error message in the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get('error');
+        if (errorMessage) {
+            showAlert(decodeURIComponent(errorMessage));
+        }
+
+        // Password toggle functionality
+        const passwordToggle = document.querySelector('.password-toggle');
+        const passwordInput = document.getElementById('password');
+
+        passwordToggle.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.textContent = 'Show';
+            } else {
+                passwordInput.type = 'password';
+                this.textContent = 'Hide';
+            }
+        });
+
+        // Password validation
+        const passwordField = document.getElementById('password');
+        const lengthReq = document.getElementById('length-req');
+        const caseReq = document.getElementById('case-req');
+        const numberReq = document.getElementById('number-req');
+        const symbolReq = document.getElementById('symbol-req');
+        const submitButton = document.querySelector('.submit-button');
+
+        passwordField.addEventListener('input', function() {
+            const password = this.value;
+            
+            // Check length
+            if (password.length >= 8) {
+                lengthReq.classList.add('valid');
+            } else {
+                lengthReq.classList.remove('valid');
+            }
+            
+            // Check upper and lower case
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+                caseReq.classList.add('valid');
+            } else {
+                caseReq.classList.remove('valid');
+            }
+            
+            // Check number
+            if (/[0-9]/.test(password)) {
+                numberReq.classList.add('valid');
+            } else {
+                numberReq.classList.remove('valid');
+            }
+            
+            // Check symbol
+            if (/[^A-Za-z0-9]/.test(password)) {
+                symbolReq.classList.add('valid');
+            } else {
+                symbolReq.classList.remove('valid');
+            }
+        });
+
+        // Form validation before submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            const password = passwordField.value;
+            const isValid = password.length >= 8 && 
+                            /[a-z]/.test(password) && 
+                            /[A-Z]/.test(password) && 
+                            /[0-9]/.test(password) && 
+                            /[^A-Za-z0-9]/.test(password);
+            
+            if (!isValid) {
+                e.preventDefault();
+                showAlert('Please meet all password requirements before submitting.');
+            }
+        });
+    </script>
+</body>
+</html>

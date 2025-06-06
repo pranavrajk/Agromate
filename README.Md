@@ -46,7 +46,7 @@
 
 - Frontend: `HTML`, `CSS`, `JavaScript`, `React` (optional)
 - Backend: `PHP` / `Node.js`
-- Database: `MySQL` / `MongoDB`
+- Database: `MySQL`
 - APIs: Weather API, Crop Price API, Insect Identification API, etc.
 
 ---
@@ -55,4 +55,4 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/agromate.git
+   git clone https://github.com/pranavrajk/Agromate.git

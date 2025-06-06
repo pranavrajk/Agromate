@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Rotation | AgroMate</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Source+Code+Pro:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #43a047;
+            --accent-color: #ffc107;
+            --text-color: #212121;
+            --light-color: #f5f5f5;
+            --dark-overlay: rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url(images/img2.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            position: relative;
+        }
+ 
+       
+        .page-title {
+            color: white;
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            margin-right: 60%; 
+        }
+
+        .home-icon {
+            position: absolute;
+            right: 20px;
+            color: white;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .home-icon:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+        }
+
+       
+        .goog-te-gadget {
+            background-color: transparent !important;
+        }
+
+        .goog-te-gadget .goog-te-combo {
+            border-radius: 4px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-content {
+            padding: 3rem 0;
+        }
+
+        .soil-cards-container {
+            perspective: 1000px;
+        }
+
+        .soil-card {
+            position: relative;
+            margin-bottom: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+            background-color: white;
+        }
+
+        .soil-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .soil-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+            height: 220px;
+            width: 100%;
+        }
+
+        .soil-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .soil-card:hover .soil-image {
+            transform: scale(1.15);
+        }
+
+        .soil-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%);
+            padding: 20px;
+            color: white;
+            transition: all 0.4s ease;
+        }
+
+        .soil-card:hover .soil-card-overlay {
+            background: linear-gradient(to top, rgba(46, 125, 50, 0.95) 0%, rgba(46, 125, 50, 0.6) 60%, rgba(0, 0, 0, 0) 100%);
+            padding-bottom: 30px;
+        }
+
+        .soil-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .soil-card:hover .soil-title {
+            transform: translateY(-5px);
+        }
+
+        /* Modal styling */
+        .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1.25rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            font-size: 1.15rem;
+            background-color: #fbfbfb;
+        }
+
+        .modal-body ol {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+
+        .modal-body li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .modal-body li:before {
+            content: '\f06c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .modal-body li:last-child {
+            font-weight: 600;
+            color: var(--primary-color);
+            border-top: 2px dashed #ddd;
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+
+        .modal-footer {
+            border-top: none;
+            padding: 1rem 1.5rem 1.75rem;
+            background-color: #fbfbfb;
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 25px;
+            font-weight: 600;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(46, 125, 50, 0.4);
+        }
+
+        .close {
+            color: white;
+            opacity: 0.8;
+            text-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            opacity: 1;
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        /* Animation for cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .soil-card {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .soil-card:nth-child(1) { animation-delay: 0.1s; }
+        .soil-card:nth-child(2) { animation-delay: 0.2s; }
+        .soil-card:nth-child(3) { animation-delay: 0.3s; }
+        .soil-card:nth-child(4) { animation-delay: 0.4s; }
+        .soil-card:nth-child(5) { animation-delay: 0.5s; }
+        .soil-card:nth-child(6) { animation-delay: 0.6s; }
+        .soil-card:nth-child(7) { animation-delay: 0.7s; }
+        .soil-card:nth-child(8) { animation-delay: 0.8s; }
+
+        /* Responsive layout */
+        @media (max-width: 1199px) {
+            .soil-image-container {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .col-lg-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+            .soil-image-container {
+                height: 220px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .soil-card {
+                margin-bottom: 1.5rem;
+            }
+            .soil-image-container {
+                height: 200px;
+            }
+            .soil-title {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .col-lg-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .page-title {
+                font-size: 1.4rem;
+            }
+            .soil-image-container {
+                height: 220px;
+            }
+        }
+        .btn-outline-success {
+            color: #f3f8f5;
+            border-color: #28a745;
+        }
+
+        .logo-container {
+            flex: 1;
+        }
+    
+        .logo-container img {
+            max-height: 40px;
+            border-radius: 3px;
+            float: inline-start;
+        }
+
+    </style>
+</head>
+
+<body>
+   
+
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="../../main/index.html">
+                <img src="../images/Logo.jpg" alt="AgroMate Logo"></a>
+              </div>
+            <h2 class="page-title">Crop Rotation Guide</h2>
+            <span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                </span>
+            </button>
+            <div> 
+                <a href="../../main/index.html" class="btn btn-outline-success"><i class="fas fa-home mr-1"></i> Home</a>
+            </div>
+        </nav>
+
+        </div>
+    </header>
+
+    <main>
+        <div class="container page-content">
+            <div class="row soil-cards-container">
+                <!-- Black Cotton Soil -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="soil-card">
+                        <a href="#" data-toggle="modal" data-target="#blackCottonModal">
+                            <div class="soil-image-container">
+                                <img src="images/img9.jpg" class="soil-image" alt="Black Cotton Soil">
+                                <div class="soil-card-overlay">
+                                    <h3 class="soil-title">Black Cotton Soil (Regur)</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Red & Yellow Soil -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="soil-card">
+                        <a href="#" data-toggle="modal" data-target="#RYModal">
+                            <div class="soil-image-container">
+                                <img src="images/img10.jpg" class="soil-image" alt="Red & Yellow Soil">
+                                <div class="soil-card-overlay">
+                                    <h3 class="soil-title">Red & Yellow Soil</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Alluvial Soil -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="soil-card">
+                        <a href="#" data-toggle="modal" data-target="#AlluvialModal">
+                            <div class="soil-image-container">
+                                <img src="images/img11.jpg" class="soil-image" alt="Alluvial Soil">
+                                <div class="soil-card-overlay">
+                                    <h3 class="soil-title">Alluvial Soil</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mountainous or Forest Soil -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="soil-card">
+                        <a href="#" data-toggle="modal" data-target="#MFModal">
+                            <div class="soil-image-container">
+                                <img src="images/img12.avif" class="soil-image" alt="Mountainous or Forest Soil">
+                                <div class="soil-card-overlay">
+                                    <h3 class="soil-title">Mountainous Soil</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Arid or Desert Soil -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="soil-card">
+                        <a href="#" data-toggle="modal" data-target="#ADModal">
+                            <div class="soil-image-container">
+                                <img src="images/img13.jpeg" class="soil-image" alt="Arid or Desert Soil">
+                                <div class="soil-card-overlay">
+                                    <h3 class="soil-title">Arid or Desert Soil</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Peaty and Marshy Soil -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="soil-card">
+                        <a href="#" data-toggle="modal" data-target="#PMModal">
+                            <div class="soil-image-container">
+                                <img src="images/img14.jpg" class="soil-image" alt="Peaty and Marshy Soil">
+                                <div class="soil-card-overlay">
+                                    <h3 class="soil-title">Peaty & Marshy Soil</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Saline and Alkaline Soil -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="soil-card">
+                        <a href="#" data-toggle="modal" data-target="#SAModal">
+                            <div class="soil-image-container">
+                                <img src="images/img17.jpg" class="soil-image" alt="Saline and Alkaline Soil">
+                                <div class="soil-card-overlay">
+                                    <h3 class="soil-title">Saline & Alkaline Soil</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Laterite Soil -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="soil-card">
+                        <a href="#" data-toggle="modal" data-target="#LModal">
+                            <div class="soil-image-container">
+                                <img src="images/img16.jpg" class="soil-image" alt="Laterite Soil">
+                                <div class="soil-card-overlay">
+                                    <h3 class="soil-title">Laterite Soil</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Black Cotton Soil Modal -->
+    <div class="modal fade" id="blackCottonModal" tabindex="-1" role="dialog" aria-labelledby="blackCottonModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blackCottonModalLabel">Black Cotton Soil (Regur Soil)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>First Crop: Cotton</li>
+                        <li>Second Crop: Soybean or Chickpea</li>
+                        <li>Example: Cotton-Soybean Rotation</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Red & Yellow Soil Modal -->
+    <div class="modal fade" id="RYModal" tabindex="-1" role="dialog" aria-labelledby="RYModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="RYModalLabel">Red & Yellow Soil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>First Crop: Groundnut</li>
+                        <li>Second Crop: Mustard</li>
+                        <li>Example: Groundnut-Mustard Rotation</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alluvial Soil Modal -->
+    <div class="modal fade" id="AlluvialModal" tabindex="-1" role="dialog" aria-labelledby="AlluvialModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AlluvialModalLabel">Alluvial Soil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>First Crop: Rice (Kharif season)</li>
+                        <li>Second Crop: Wheat (Rabi season)</li>
+                        <li>Example: Rice-Wheat Rotation</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mountainous or Forest Soil Modal -->
+    <div class="modal fade" id="MFModal" tabindex="-1" role="dialog" aria-labelledby="MFModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="MFModalLabel">Mountainous or Forest Soil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>First Crop: Barley</li>
+                        <li>Second Crop: Potatoes</li>
+                        <li>Example: Barley-Potato Rotation</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arid or Desert Soil Modal -->
+    <div class="modal fade" id="ADModal" tabindex="-1" role="dialog" aria-labelledby="ADModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ADModalLabel">Arid or Desert Soil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>First Crop: Pearl Millet (Bajra)</li>
+                        <li>Second Crop: Cluster Beans</li>
+                        <li>Example: Pearl Millet-Cluster Beans Rotation</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Peaty and Marshy Soil Modal -->
+    <div class="modal fade" id="PMModal" tabindex="-1" role="dialog" aria-labelledby="PMModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="PMModalLabel">Peaty and Marshy Soil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>First Crop: Cranberries</li>
+                        <li>Second Crop: Reed Canary Grass</li>
+                        <li>Example: Cranberries-Reed Canary Grass Rotation</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Saline and Alkaline Soil Modal -->
+    <div class="modal fade" id="SAModal" tabindex="-1" role="dialog" aria-labelledby="SAModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SAModalLabel">Saline and Alkaline Soil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>First Crop: Barley (tolerant to saline conditions)</li>
+                        <li>Second Crop: Mustard</li>
+                        <li>Example: Barley-Mustard Rotation</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Laterite Soil Modal -->
+    <div class="modal fade" id="LModal" tabindex="-1" role="dialog" aria-labelledby="LModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LModalLabel">Laterite Soil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>First Crop: Tapioca (Cassava)</li>
+                        <li>Second Crop: Sweet Potato</li>
+                        <li>Example: Tapioca-Sweet Potato Rotation</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

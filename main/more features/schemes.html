@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha384-hv8kH2VVVNATQD3UqqFvDmYD77lO9b/SVf0bUIwYmZ5R1SSZIkHf/jT84sJTZd+V" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>AgroMate</title>
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #43a047;
+            --accent-color: #ffc107;
+            --text-color: #212121;
+            --light-color: #f5f5f5;
+            --dark-overlay: rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        main {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+        }
+
+        #page3 {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #page3 video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        #page3-content {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .containeragri {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 85%;
+            max-width: 900px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .containeragri::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: -1;
+        }
+
+        #agri {
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        #agri::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 10px;
+        }
+
+        #agri i {
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        #agri i:hover {
+            transform: scale(1.2);
+            color: var(--primary-color) !important;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(46, 125, 50, 0.3);
+            transform: translateY(-2px);
+        }
+
+        #searchInput::placeholder {
+            color: #aaa;
+        }
+
+        .scheme-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 50vh;
+            overflow-y: auto;
+            border-radius: 15px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 15px;
+        }
+
+        .scheme-list::-webkit-scrollbar {
+            width: 8px;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        .scheme-list::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .scheme-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.5s ease forwards;
+            height: 100%;
+        }
+
+        .no-results {
+            grid-column: span 2;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scheme-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.15);
+        }
+
+        .scheme-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .scheme-item:hover::before {
+            width: 10px;
+        }
+
+        .scheme-item a {
+            display: flex;
+            align-items: center;
+            padding: 18px 25px 18px 30px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            height: 100%;
+        }
+
+        .scheme-item a::after {
+            content: "\f105";
+            font-family: FontAwesome;
+            position: absolute;
+            right: 25px;
+            color: var(--primary-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .scheme-item:hover a {
+            padding-left: 35px;
+            color: var(--primary-color);
+        }
+
+        .scheme-item:hover a::after {
+            opacity: 1;
+            right: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .containeragri {
+                width: 90%;
+                padding: 2rem 1.5rem;
+            }
+
+            #agri {
+                font-size: 1.7rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            #agri i {
+                margin-left: 0;
+            }
+
+            #searchInput {
+                padding: 12px 15px;
+            }
+
+            .scheme-item a {
+                font-size: 0.9rem;
+                padding: 15px 20px 15px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .containeragri {
+                width: 95%;
+                padding: 1.5rem 1rem;
+            }
+
+            #agri {
+                font-size: 1.4rem;
+            }
+
+            .scheme-list {
+                grid-template-columns: 1fr;
+            }
+
+            .no-results {
+                grid-column: span 1;
+            }
+
+            .scheme-list {
+                max-height: 40vh;
+            }
+        }
+    </style>
+    
+</head>
+
+<body>
+    <main>
+        <div id="page3">
+            <video autoplay loop muted src="videos/video6.mp4"></video>
+            <div id="page3-content">
+                <section>
+                    <div class="containeragri">
+                        <h2 id="agri">
+                            <span>Agriculture Schemes</span>
+                            <a href="../../main/index.html"><i class="fa fa-home" style="font-size:36px; color: rgb(0, 0, 0);"></i></a>
+                        </h2>
+                        <input type="text" id="searchInput" placeholder="Search by scheme name...">
+                        <ul class="scheme-list" id="schemeList">
+                            <!-- Scheme items will be dynamically added here using JavaScript -->
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const allSchemes = [
+            { name: 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)', link: 'https://pmkisan.gov.in/' },
+            { name: 'Pradhan Mantri Fasal Bima Yojana (PMFBY)', link: 'https://pmfby.gov.in/' },
+            { name: 'National Mission for Sustainable Agriculture (NMSA)', link: 'https://nmsa.dac.gov.in/' },
+            { name: 'Soil Health Card Scheme', link: 'https://soilhealth.dac.gov.in/' },
+            { name: 'Rashtriya Krishi Vikas Yojana (RKVY)', link: 'https://rkvy.nic.in/' },
+            { name: 'National Livestock Mission (NLM)', link: 'https://nlm.udyamimitra.in/' },
+            { name: 'National Beekeeping and Honey Mission (NBHM)', link: 'https://nbb.gov.in/default.html' },
+            { name: 'Animal Husbandry Infrastructure Development Fund (AHIDF)', link: 'https://ahidf.udyamimitra.in/' },
+            { name: 'Kisan Credit Card (KCC)', link: 'https://upagripardarshi.gov.in/staticpages/KisanCreditCard.aspx' },
+        ];
+
+        const schemeList = document.getElementById('schemeList');
+        const searchInput = document.getElementById('searchInput');
+
+        function renderSchemes(schemes) {
+            schemeList.innerHTML = '';
+            
+            if (schemes.length === 0) {
+                const noResults = document.createElement('li');
+                noResults.className = 'scheme-item no-results';
+                noResults.innerHTML = `<span style="display: block; padding: 18px 25px; text-align: center; color: #777;">No schemes found matching your search</span>`;
+                schemeList.appendChild(noResults);
+                return;
+            }
+
+            schemes.forEach((scheme, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'scheme-item';
+                listItem.style.animationDelay = `${index * 0.05}s`;
+                listItem.innerHTML = `<a href="${scheme.link}" target="_blank">${scheme.name}</a>`;
+                schemeList.appendChild(listItem);
+            });
+        }
+
+        function filterSchemes(searchTerm) {
+            searchTerm = searchTerm.toLowerCase();
+            return allSchemes.filter(scheme => scheme.name.toLowerCase().includes(searchTerm));
+        }
+
+        function updateSchemeList() {
+            const searchTerm = searchInput.value;
+            const filteredSchemes = filterSchemes(searchTerm);
+            renderSchemes(filteredSchemes);
+        }
+
+        // Initial render
+        renderSchemes(allSchemes);
+
+        // Add event listener for input changes
+        searchInput.addEventListener('input', updateSchemeList);
+
+        // Add focus animation to search input
+        searchInput.addEventListener('focus', function() {
+            this.parentElement.classList.add('focused');
+        });
+
+        searchInput.addEventListener('blur', function() {
+            this.parentElement.classList.remove('focused');
+        });
+    </script>
+</body>
+
+</html>

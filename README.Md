@@ -56,3 +56,15 @@
 1. Clone the repository:
    ```bash
    git clone https://github.com/pranavrajk/Agromate.git
+
+## 👥 Contributors
+
+Thanks to these amazing people for building Agromate:
+
+| Name             | GitHub Username                                |
+|------------------|------------------------------------------------|
+| Amish C K        | [@Amishck](https://github.com/Amishck)     |
+| Contributor 3    | [@username3](https://github.com/username3)     |
+| Contributor 4    | [@username4](https://github.com/username4)     |
+| Contributor 5    | [@username5](https://github.com/username5)     |
+

@@ -59,7 +59,7 @@
 
 ## 👥 Contributors
 
-Thanks to these amazing people for building Agromate:
+Thanks to these amazing people for helping to build Agromate:
 
 | Name             | GitHub Username                                |
 |------------------|------------------------------------------------|

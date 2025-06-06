@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroMate Rental</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyDHIjllBxWjEhsW9-34M8_sJzjCdQjNHDA",
+      authDomain: "agromate-90249.firebaseapp.com",
+      projectId: "agromate-90249",
+      storageBucket: "agromate-90249.appspot.com",
+      messagingSenderId: "409576316801",
+      appId: "1:409576316801:web:699928e26b3bdc2f1f5280",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = 'login.html'; // Redirect to login if not authenticated
+      }
+    });
+  </script>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./assets/images/AgroMate.png" type="image/svg+xml">
+
+  <!-- CSS Links -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  
+  <style>
+    /* Header styling */
+    header {
+      background-color: #f8f9fa;
+      padding: 15px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+    }
+    
+    .logo-container {
+      flex: 1;
+    }
+    
+    .logo-container img {
+      max-height: 40px;
+      float: inline-start;
+    }
+    
+    .heading-container {
+      flex: 2;
+      text-align: center;
+    }
+    
+    .heading-container h1 {
+      color: #2c3e50;
+      font-size: 2rem;
+      margin: 0;
+    }
+    
+    .home-button-container {
+      flex: 1;
+      text-align: right;
+    }
+    
+    .home-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .home-button:hover {
+      color: #27ae60;
+    }
+    
+    /* Enhanced styling without changing functionality */
+    .hero_area {
+      background-color: #f8f9fa;
+      padding: 20px 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    .title-wrapper {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .title-wrapper h2 {
+      color: #2c3e50;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .title-wrapper h2:after {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 3px;
+      background: #27ae60;
+      bottom: -10px;
+      left: 25%;
+    }
+    
+    .featured-car-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      padding: 0;
+      list-style: none;
+    }
+    
+    .featured-car-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .featured-car-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    
+    .card-banner img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .featured-car-card:hover .card-banner img {
+      transform: scale(1.05);
+    }
+    
+    .card-content {
+      padding: 20px;
+    }
+    
+    .card-title-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .card-title {
+      font-size: 1.2rem;
+      color: #2c3e50;
+      margin: 0;
+    }
+    
+    .year {
+      color: #7f8c8d;
+      font-size: 0.9rem;
+    }
+    
+    .card-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 15px 0;
+    }
+    
+    .card-list-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      color: #34495e;
+      font-size: 0.9rem;
+    }
+    
+    .card-list-item ion-icon {
+      margin-right: 8px;
+      color: #27ae60;
+    }
+    
+    .card-price-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .card-price {
+      font-size: 1.1rem;
+      color: #27ae60;
+      font-weight: bold;
+      margin: 0;
+    }
+    
+    .btn {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .btn:hover {
+      background: #219653;
+    }
+    
+    .fav-btn {
+      background: transparent;
+      color: #7f8c8d;
+      font-size: 1.2rem;
+      padding: 5px;
+    }
+    
+    .fav-btn:hover {
+      color: #e74c3c;
+      background: transparent;
+    }
+    
+    .fa-home {
+      transition: color 0.3s ease;
+    }
+    
+    .fa-home:hover {
+      color: #27ae60 !important;
+    }
+    .btn-home{
+      background: #27ae60;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 5px;
+    height: 40px;
+    width: 120px;
+    float: right;
+    margin-left: 10px;
+}
+    
+    /* Rental details styling */
+    .rental-details {
+      background: #f1f2f6;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const rentButtons = document.querySelectorAll(".featured-car-card .btn:not(.fav-btn)");
+
+      rentButtons.forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          event.preventDefault();
+
+          // Remove any existing details containers
+          const existingDetails = button.parentNode.querySelector('.rental-details');
+          if (existingDetails) {
+            existingDetails.remove();
+            return;
+          }
+
+          const ownerName = button.dataset.ownerName;
+          const mobileNumber = button.dataset.mobileNumber;
+
+          // Create a container for the details
+          const detailsContainer = document.createElement('div');
+          detailsContainer.classList.add('rental-details');
+
+          // Create elements for owner name and mobile number
+          const ownerNameElement = document.createElement('p');
+          ownerNameElement.innerHTML = `<strong>Owner:</strong> ${ownerName}`;
+
+          const mobileNumberElement = document.createElement('p');
+          mobileNumberElement.innerHTML = `<strong>Contact:</strong> ${mobileNumber}`;
+
+          // Append elements to the details container
+          detailsContainer.appendChild(ownerNameElement);
+          detailsContainer.appendChild(mobileNumberElement);
+
+          // Insert details container next to the button
+          button.parentNode.insertBefore(detailsContainer, button.nextSibling);
+        });
+      });
+    });
+  </script>
+
+  <!-- New Header Section -->
+  <header>
+    <div class="header-container">
+      <div class="logo-container">
+        <a href="../../main/index.html">
+        <img src="../images/Logo.jpg" alt="AgroMate Logo"></a>
+      </div>
+      <div class="heading-container">
+        <h1>AgroMate Equipment Rental</h1>
+      </div>
+      <div class="home-button-container">
+        <a href="../../main/index.html" class="btn-home"><i class="fas fa-home mr-1"></i> Home</a>
+      </div>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="title-wrapper">
+    </div>
+
+    <ul class="featured-car-list">
+      <!-- Axe Card -->
+      <li>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/axe.jpeg" alt="Axe" loading="lazy" width="440" height="500" class="w-100">
+          </figure>
+          <div class="card-content">
+            <div class="card-title-wrapper">
+              <h3 class="h3 card-title"><a href="#">Axe</a></h3>
+              <data class="year" value="2021">2021</data>
+            </div>
+            <ul class="card-list">
+              <li class="card-list-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="card-item-text">Available: 10</span>
+              </li>
+              <li class="card-list-item">
+                <ion-icon name="flash-outline"></ion-icon>
+                <span class="card-item-text">Rental fee: 350</span>
+              </li>
+            </ul>
+            <div class="card-price-wrapper">
+              <p class="card-price"><strong>Rs.350</strong> / day</p>
+              <button class="btn fav-btn" aria-label="Add to favourite list">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+              <button class="btn" data-owner-name="Sumesh" data-mobile-number="9534887213">Rent now</button>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Garden Hose Card -->
+      <li>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/Garden_Hose.jpeg" alt="Garden_Hose" loading="lazy" width="440" height="300" class="w-100">
+          </figure>
+          <div class="card-content">
+            <div class="card-title-wrapper">
+              <h3 class="h3 card-title"><a href="#">Garden_Hose</a></h3>
+              <data class="year" value="2019">2019</data>
+            </div>
+            <ul class="card-list">
+              <li class="card-list-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="card-item-text">Available: 4</span>
+              </li>
+            </ul>
+            <div class="card-price-wrapper">
+              <p class="card-price"><strong>Rs.210</strong> / day</p>
+              <button class="btn fav-btn" aria-label="Add to favourite list">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+              <button class="btn" data-owner-name="Ratheesh" data-mobile-number="98553277765">Rent now</button>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- All other cards follow the same pattern -->
+      <!-- Mini-Showel Card -->
+      <li>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/Mini-Showel.jpg" alt="Mini-Showel" loading="lazy" width="440" height="300" class="w-100">
+          </figure>
+          <div class="card-content">
+            <div class="card-title-wrapper">
+              <h3 class="h3 card-title"><a href="#">Mini-Showel</a></h3>
+              <data class="year" value="2020">2020</data>
+            </div>
+            <ul class="card-list">
+              <li class="card-list-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="card-item-text">Available: 7</span>
+              </li>
+            </ul>
+            <div class="card-price-wrapper">
+              <p class="card-price"><strong>Rs.240</strong> / day</p>
+              <button class="btn fav-btn" aria-label="Add to favourite list">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+              <button class="btn" data-owner-name="Mukesh" data-mobile-number="88765412332">Rent now</button>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Prunning Saw Card -->
+      <li>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/prunning-saw.jpeg" alt="prunning-saw" loading="lazy" width="440" height="300" class="w-100">
+          </figure>
+          <div class="card-content">
+            <div class="card-title-wrapper">
+              <h3 class="h3 card-title"><a href="#">Prunning Saw</a></h3>
+              <data class="year" value="2020">2020</data>
+            </div>
+            <ul class="card-list">
+              <li class="card-list-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="card-item-text">Available: 5</span>
+              </li>
+            </ul>
+            <div class="card-price-wrapper">
+              <p class="card-price"><strong>Rs. 210</strong> / day</p>
+              <button class="btn fav-btn" aria-label="Add to favourite list">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+              <button class="btn" data-owner-name="Sumesh" data-mobile-number="8564375322">Rent now</button>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Prunning Shears Card -->
+      <li>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/prunning-shears.jpeg" alt="prunning-shears" loading="lazy" width="440" height="300" class="w-100">
+          </figure>
+          <div class="card-content">
+            <div class="card-title-wrapper">
+              <h3 class="h3 card-title"><a href="#">Prunning Shears</a></h3>
+              <data class="year" value="2021">2021</data>
+            </div>
+            <ul class="card-list">
+              <li class="card-list-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="card-item-text">Available: 9</span>
+              </li>
+            </ul>
+            <div class="card-price-wrapper">
+              <p class="card-price"><strong>Rs. 100</strong> / day</p>
+              <button class="btn fav-btn" aria-label="Add to favourite list">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+              <button class="btn" data-owner-name="Rakesh" data-mobile-number="9088762234">Rent now</button>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Shovel Card -->
+      <li>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/shovel.jpeg" alt="shovel" loading="lazy" width="440" height="300" class="w-100">
+          </figure>
+          <div class="card-content">
+            <div class="card-title-wrapper">
+              <h3 class="h3 card-title"><a href="#">shovel</a></h3>
+              <data class="year" value="2019">2019</data>
+            </div>
+            <ul class="card-list">
+              <li class="card-list-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="card-item-text">Available: 8</span>
+              </li>
+            </ul>
+            <div class="card-price-wrapper">
+              <p class="card-price"><strong>Rs. 110</strong> / day</p>
+              <button class="btn fav-btn" aria-label="Add to favourite list">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+              <button class="btn" data-owner-name="Babu" data-mobile-number="8867432134">Rent now</button>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Pickup Xenon Card -->
+      <li>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/pickup_XENON.jpg" alt="pickup_xenon" loading="lazy" width="440" height="300" class="w-100">
+          </figure>
+          <div class="card-content">
+            <div class="card-title-wrapper">
+              <h3 class="h3 card-title"><a href="#">Pickup: Xenon</a></h3>
+              <data class="year" value="2019">2019</data>
+            </div>
+            <ul class="card-list">
+              <li class="card-list-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="card-item-text">Available: 8</span>
+              </li>
+            </ul>
+            <div class="card-price-wrapper">
+              <p class="card-price"><strong>Rs. 1000</strong> / day</p>
+              <button class="btn fav-btn" aria-label="Add to favourite list">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+              <button class="btn" data-owner-name="Raman" data-mobile-number="998769987">Rent now</button>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Tractor Card -->
+      <li>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/tractor.jpg" alt="tractor" loading="lazy" width="440" height="300" class="w-100">
+          </figure>
+          <div class="card-content">
+            <div class="card-title-wrapper">
+              <h3 class="h3 card-title"><a href="#">Tractor</a></h3>
+              <data class="year" value="2019">2019</data>
+            </div>
+            <ul class="card-list">
+              <li class="card-list-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="card-item-text">Available: 8</span>
+              </li>
+            </ul>
+            <div class="card-price-wrapper">
+              <p class="card-price"><strong>Rs. 900</strong> / day</p>
+              <button class="btn fav-btn" aria-label="Add to favourite list">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+              <button class="btn" data-owner-name="Ramanan" data-mobile-number="9987544676">Rent now</button>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- Wheel Barrow Card -->
+      <li>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/Wheel-Barrow.jpeg" alt="wheel_barrow" loading="lazy" width="440" height="300" class="w-100">
+          </figure>
+          <div class="card-content">
+            <div class="card-title-wrapper">
+              <h3 class="h3 card-title"><a href="#">Wheel Barrow</a></h3>
+              <data class="year" value="2019">2019</data>
+            </div>
+            <ul class="card-list">
+              <li class="card-list-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span class="card-item-text">Available: 9</span>
+              </li>
+            </ul>
+            <div class="card-price-wrapper">
+              <p class="card-price"><strong>Rs. 130</strong> / day</p>
+              <button class="btn fav-btn" aria-label="Add to favourite list">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+              <button class="btn" data-owner-name="Satheesh" data-mobile-number="9987534468">Rent now</button>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Ion Icons -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

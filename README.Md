@@ -63,8 +63,7 @@ Thanks to these amazing people for building Agromate:
 
 | Name             | GitHub Username                                |
 |------------------|------------------------------------------------|
-| Amish C K        | [@Amishck](https://github.com/Amishck)     |
-| Contributor 3    | [@username3](https://github.com/username3)     |
-| Contributor 4    | [@username4](https://github.com/username4)     |
-| Contributor 5    | [@username5](https://github.com/username5)     |
+| Amish C K        | [@Amishck](https://github.com/Amishck)         |
+| Sidharth Sajeev  | [@username3](https://github.com/username3)     |
+| Prithvi Shankar  | [@username4](https://github.com/username4)     |
 

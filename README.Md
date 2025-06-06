@@ -38,7 +38,7 @@
 
 ## 📸 Screenshots
 
-_Add screenshots of your project here to showcase its UI and features._
+![Agromate Screenshot](img/Screenshot%202025-05-12%20171922.png)
 
 ---
 
